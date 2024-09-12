@@ -1,6 +1,6 @@
 import requests
 import json
-import tqdm
+from tqdm import tqdm
 import threading
 
 def callGetStock(header,threads_numb,targetStocks,start_time,end_time,interval):
@@ -16,17 +16,17 @@ def callGetStock(header,threads_numb,targetStocks,start_time,end_time,interval):
         else:
             splitStockCode.append(targetStocks[divNumb*i:len(targetStocks)])
 
-    def requestStockDataYahoo(code):
+    def requestStockDataYahoo(code,header):
         yahoofinanceAPIUrl=yahoofinanceAPIBaseLink+code+"?"+"period1="+start_time+"&period2="+end_time+"&interval="+interval+"&includePrePost=true&lang=en-US&region=US"
         #print(yahoofinanceAPIUrl)
-        stockData=requests.get(yahoofinanceAPIUrl,headers=header,timeout=5)
+        stockData=requests.get(yahoofinanceAPIUrl,headers=header,timeout=10)
         fullStockInfo.append(stockData.text)
         #print(stockData)
 
     def worker(codes,thread_numb):
         progress_bar = tqdm(codes,desc=f"Thread {thread_numb} Progress", position=thread_numb, leave=True,dynamic_ncols=False)
         for code in codes:
-            requestStockDataYahoo(code)
+            requestStockDataYahoo(code,header)
             progress_bar.update(1)
 
     for i in range(threads_num):
