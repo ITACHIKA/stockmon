@@ -15,6 +15,7 @@ header ={"user-agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.
 exchange=["nasdaq","nyse","amex"]
 threads=64
 
+hourDiff=3
 targetStocks=[]
 
 def initWorkFolder():
@@ -27,7 +28,7 @@ def initWorkFolder():
 
 def getTargetStock(exchange,header,threads):
     global targetStocks
-    result=callGetTargetStock(header,exchange,threads,interval='1m')
+    result=callGetTargetStock(header,exchange,threads,hourDiff,interval='1m')
     targetStocks=result
     logger("Updates target stock")
     with open(workDirectory+"/targetStock.txt","w") as file:
@@ -38,7 +39,7 @@ def getTargetStock(exchange,header,threads):
     return targetStocks
 
 def routineGetStock():
-    timePeriod=getUnixTime(1)
+    timePeriod=getUnixTime(1,hourDiff)
     rawStockData=callGetStock(header,threads,targetStocks,timePeriod[0],timePeriod[1],interval="1m")
     processedStockData=processTargetStockData(rawStockData,timePeriod[1])
     with open(workDirectory+"/"+str(timePeriod[1])+".txt","w") as f:

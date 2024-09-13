@@ -3,9 +3,9 @@ from callGetAllStockInfo import callGetStock
 from getUnixTime import getUnixTime
 from callGetAllCode import callGetAllCode
 
-def callGetTargetStock(header,exchange,threads,interval='1m'):
+def callGetTargetStock(header,exchange,threads,hourDiff,interval='1m'):
     codes=callGetAllCode(exchange,header)
-    weekPeriod=getUnixTime(6*24*60)
+    weekPeriod=getUnixTime(6*24*60,hourDiff)
     fullStockInfo=callGetStock(header,threads,codes,weekPeriod[0],weekPeriod[1],interval)
 
     possibleStockCodes=[]

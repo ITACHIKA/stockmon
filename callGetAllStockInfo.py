@@ -2,6 +2,7 @@ import requests
 import json
 from tqdm import tqdm
 import threading
+from logger import logger
 
 def callGetStock(header,threads_numb,targetStocks,start_time,end_time,interval):
     yahoofinanceAPIBaseLink="https://query2.finance.yahoo.com/v8/finance/chart/"
@@ -18,7 +19,7 @@ def callGetStock(header,threads_numb,targetStocks,start_time,end_time,interval):
 
     def requestStockDataYahoo(code,header):
         yahoofinanceAPIUrl=yahoofinanceAPIBaseLink+code+"?"+"period1="+start_time+"&period2="+end_time+"&interval="+interval+"&includePrePost=true&lang=en-US&region=US"
-        #print(yahoofinanceAPIUrl)
+        logger(yahoofinanceAPIUrl)
         stockData=requests.get(yahoofinanceAPIUrl,headers=header,timeout=10)
         fullStockInfo.append(stockData.text)
         #print(stockData)

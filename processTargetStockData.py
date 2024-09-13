@@ -1,14 +1,14 @@
 import json
 import numpy as np
 import datetime
+from logger import logger
 
 def processTargetStockData(stockData,curtime):
     targetStockData=[]
     for stock in stockData:
-        print(stock)
+        logger(stock)
         stockJson=json.loads(stock)
         symbol=stockJson["chart"]["result"][0]["meta"]["symbol"]
-        timestamp=datetime.datetime.fromtimestamp(int(stockJson["chart"]["result"][0]["timestamp"][-1]))
         try:
             timestamp=datetime.datetime.fromtimestamp(int(stockJson["chart"]["result"][0]["timestamp"][-1]))
             openPrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["open"][-1]
@@ -18,7 +18,6 @@ def processTargetStockData(stockData,curtime):
             volume=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["volume"][-1]
             targetStockData.append[symbol,timestamp,openPrice,closePrice,lowPrice,highPrice,volume]
         except Exception as e:
-            print(e)
             timestamp=datetime.datetime.fromtimestamp(int(curtime))
             openPrice=-1
             closePrice=-1
