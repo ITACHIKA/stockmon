@@ -15,7 +15,7 @@ def callGetStock(header,threads_numb,targetStocks,start_time,end_time,interval):
         if(i!=(threads_num-1)):
             splitStockCode.append(targetStocks[divNumb*i:divNumb*(i+1)])
         else:
-            splitStockCode.append(targetStocks[divNumb*i:len(targetStocks)])
+            splitStockCode.append(targetStocks[divNumb*i:len(targetStocks)])  
 
     def requestStockDataYahoo(code,header):
         yahoofinanceAPIUrl=yahoofinanceAPIBaseLink+code+"?"+"period1="+start_time+"&period2="+end_time+"&interval="+interval+"&includePrePost=true&lang=en-US&region=US"

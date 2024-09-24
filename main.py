@@ -39,7 +39,7 @@ def getTargetStock(exchange,header,threads):
     return targetStocks
 
 def routineGetStock():
-    timePeriod=getUnixTime(1,hourDiff)
+    timePeriod=getUnixTime(60,hourDiff)
     rawStockData=callGetStock(header,threads,targetStocks,timePeriod[0],timePeriod[1],interval="1m")
     processedStockData=processTargetStockData(rawStockData,timePeriod[1])
     with open(workDirectory+"/"+str(timePeriod[1])+".txt","w") as f:
@@ -52,7 +52,7 @@ scheduler=BackgroundScheduler()
 #scheduler.add_job(allStockCodeGetter,'cron',hour=0,minute=1,args=(exchange,header))
 scheduler.add_job(initWorkFolder,'cron',hour=0,minute=0)
 scheduler.add_job(getTargetStock,'cron',hour=0,minute=1,args=(exchange,header,threads))
-scheduler.add_job(routineGetStock,'interval',minutes=1)
+scheduler.add_job(routineGetStock,'interval',minutes=1,max_instances=3)
 
 initWorkFolder()
 print(workDirectory)

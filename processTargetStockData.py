@@ -9,15 +9,18 @@ def processTargetStockData(stockData,curtime):
         logger(stock)
         stockJson=json.loads(stock)
         symbol=stockJson["chart"]["result"][0]["meta"]["symbol"]
+        print(stockJson["chart"]["result"][0])
         try:
-            timestamp=datetime.datetime.fromtimestamp(int(stockJson["chart"]["result"][0]["timestamp"][-1]))
-            openPrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["open"][-1]
-            closePrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["close"][-1]
-            lowPrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["low"][-1]
-            highPrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["high"][-1]
-            volume=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["volume"][-1]
+            #timestamp=stockJson["chart"]["result"][0]["timestamp"][0]
+            openPrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["open"][0]
+            closePrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["close"][0]
+            lowPrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["low"][0]
+            highPrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["high"][0]
+            volume=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["volume"][0]
             targetStockData.append[symbol,timestamp,openPrice,closePrice,lowPrice,highPrice,volume]
         except Exception as e:
+            #print("error")
+            #print(e)
             timestamp=datetime.datetime.fromtimestamp(int(curtime))
             openPrice=-1
             closePrice=-1
