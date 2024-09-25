@@ -11,9 +11,9 @@ from processTargetStockData import processTargetStockData
 currentDayReady=False
 
 workDirectory=""
-header ={"user-agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"}
+header ={"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"}
 exchange=["nasdaq","nyse","amex"]
-threads=64
+threads=24
 
 hourDiff=3
 targetStocks=[]

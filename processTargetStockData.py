@@ -9,9 +9,8 @@ def processTargetStockData(stockData,curtime):
         logger(stock)
         stockJson=json.loads(stock)
         symbol=stockJson["chart"]["result"][0]["meta"]["symbol"]
-        print(stockJson["chart"]["result"][0])
         try:
-            #timestamp=stockJson["chart"]["result"][0]["timestamp"][0]
+            timestamp=stockJson["chart"]["result"][0]["timestamp"][0]
             openPrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["open"][0]
             closePrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["close"][0]
             lowPrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["low"][0]
