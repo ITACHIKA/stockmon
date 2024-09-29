@@ -1,0 +1,5 @@
+numpy
+pandas
+apscheduler
+tqdm
+requests
