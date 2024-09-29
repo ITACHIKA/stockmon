@@ -22,7 +22,7 @@ def processTargetStockData(stockData,curtime):
             targetStockData.append([symbol,timestamp,openPrice,closePrice,lowPrice,highPrice,volume])
         except Exception as e:
             #print("error")
-            print(e)
+            #print(e)
             timestamp=datetime.datetime.fromtimestamp(int(curtime))
             openPrice=-1
             closePrice=-1
