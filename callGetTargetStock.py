@@ -20,6 +20,6 @@ def callGetTargetStock(header,exchange,threads,hourDiff,interval='1m'):
             regularMarketPrice=114514
         if(regularMarketPrice<=1):
             symbol=indvStockJson["chart"]["result"][0]["meta"]["symbol"]
-            possibleStockCodes.append(symbol)
-    #logger("Updates target stock.")
+            if(len(symbol)<=4):
+                possibleStockCodes.append(symbol)
     return possibleStockCodes

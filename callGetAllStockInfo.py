@@ -4,7 +4,7 @@ from tqdm import tqdm
 import threading
 from logger import logger
 
-def callGetStock(header,threads_numb,targetStocks,start_time,end_time,interval):
+def callGetStock(header,threads_numb,targetStocks,start_time,end_time,interval,disp_graph=True):
     yahoofinanceAPIBaseLink="https://query2.finance.yahoo.com/v8/finance/chart/"
     threads_num=threads_numb
     threads=[]
@@ -24,14 +24,16 @@ def callGetStock(header,threads_numb,targetStocks,start_time,end_time,interval):
         fullStockInfo.append(stockData.text)
         #print(stockData)
 
-    def worker(codes,thread_numb):
-        progress_bar = tqdm(codes,desc=f"Thread {thread_numb} Progress", position=thread_numb, leave=True,dynamic_ncols=False)
+    def worker(codes,thread_numb,disp_graph):
+        if(disp_graph):
+            progress_bar = tqdm(codes,desc=f"Thread {thread_numb} Progress", position=thread_numb, leave=True,dynamic_ncols=False)
         for code in codes:
             requestStockDataYahoo(code,header)
-            progress_bar.update(1)
+            if(disp_graph):
+                progress_bar.update(1)
 
     for i in range(threads_num):
-        thread=threading.Thread(target=worker,args=(splitStockCode[i],i))
+        thread=threading.Thread(target=worker,args=(splitStockCode[i],i,disp_graph))
         threads.append(thread)
 
     for thread in threads:

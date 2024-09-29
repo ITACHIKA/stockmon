@@ -39,8 +39,8 @@ def getTargetStock(exchange,header,threads):
     return targetStocks
 
 def routineGetStock():
-    timePeriod=getUnixTime(60,hourDiff)
-    rawStockData=callGetStock(header,threads,targetStocks,timePeriod[0],timePeriod[1],interval="1m")
+    timePeriod=getUnixTime(600,hourDiff)
+    rawStockData=callGetStock(header,threads,targetStocks,timePeriod[0],timePeriod[1],interval="1m",disp_graph=False)
     processedStockData=processTargetStockData(rawStockData,timePeriod[1])
     with open(workDirectory+"/"+str(timePeriod[1])+".txt","w") as f:
         for eachStock in processedStockData:
