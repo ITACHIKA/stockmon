@@ -3,3 +3,4 @@ pandas
 apscheduler
 tqdm
 requests
+retry

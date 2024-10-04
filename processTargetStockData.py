@@ -18,8 +18,9 @@ def processTargetStockData(stockData,curtime):
             closePrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["close"][-1]
             lowPrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["low"][-1]
             highPrice=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["high"][-1]
-            volume=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["volume"][-1]
-            targetStockData.append([symbol,timestamp,openPrice,closePrice,lowPrice,highPrice,volume])
+            volume=stockJson["chart"]["result"][0]["indicators"]["quote"][0]["volume"]
+            totalVolume=np.sum(volume)
+            targetStockData.append([symbol,timestamp,openPrice,closePrice,lowPrice,highPrice,totalVolume])
         except Exception as e:
             #print("error")
             #print(e)
